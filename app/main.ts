@@ -350,4 +350,4 @@ interface PartyProperties {
     [propName: string]: string | number | number[];
 }
 
-
+var btw2017 = new Btw2017();

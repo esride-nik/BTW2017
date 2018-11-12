@@ -305,5 +305,6 @@ define(["require", "exports", "esri/config", "esri/Map", "esri/views/SceneView",
         };
         return Btw2017;
     }(_WidgetBase));
+    var btw2017 = new Btw2017();
 });
 //# sourceMappingURL=main.js.map

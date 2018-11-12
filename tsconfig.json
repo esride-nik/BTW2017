@@ -16,7 +16,7 @@
     "suppressImplicitAnyIndexErrors": true
   },
   "include": [
-    "./BTW2017/app/*"
+    "./app/*"
   ],
   "exclude" : ["node_modules"]
 }
