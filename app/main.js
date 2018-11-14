@@ -1,3 +1,5 @@
+/// <reference path="../node_modules/@types/dojo/index.d.ts" />
+/// <reference path="../node_modules/@types/dojo/dijit.d.ts" />
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
@@ -11,9 +13,10 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-define(["require", "exports", "esri/config", "esri/Map", "esri/views/SceneView", "esri/renderers/SimpleRenderer", "esri/symbols/PolygonSymbol3D", "esri/symbols/ExtrudeSymbol3DLayer", "esri/widgets/Legend", "esri/layers/FeatureLayer", "esri/layers/WebTileLayer", "esri/PopupTemplate", "dojo/dom", "dojo/dom-class", "dijit/_WidgetBase", "dojo/_base/lang", "dojo/on", "./cameraStatus"], function (require, exports, esriConfig, EsriMap, SceneView, SimpleRenderer, PolygonSymbol3D, ExtrudeSymbol3DLayer, Legend, FeatureLayer, WebTileLayer, PopupTemplate, dom, domClass, _WidgetBase, lang, on, CameraStatus) {
+define(["require", "exports", "esri/config", "esri/Map", "esri/views/SceneView", "esri/renderers/SimpleRenderer", "esri/symbols/PolygonSymbol3D", "esri/symbols/ExtrudeSymbol3DLayer", "esri/widgets/Legend", "esri/layers/FeatureLayer", "esri/PopupTemplate", "dojo/dom", "dojo/dom-class", "dijit/_WidgetBase", "dojo/_base/lang", "dojo/on", "./cameraStatus"], function (require, exports, esriConfig, EsriMap, SceneView, SimpleRenderer, PolygonSymbol3D, ExtrudeSymbol3DLayer, Legend, FeatureLayer, PopupTemplate, dom, domClass, _WidgetBase, lang, on, CameraStatus) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
+    // import * as geoJson from './geoJson.json';
     var Btw2017 = /** @class */ (function (_super) {
         __extends(Btw2017, _super);
         function Btw2017(args) {
@@ -203,19 +206,21 @@ define(["require", "exports", "esri/config", "esri/Map", "esri/views/SceneView",
         };
         Btw2017.prototype.createMap = function (btwLayer) {
             var esrimap = new EsriMap({
-                /*             basemap: "streets", */
+                basemap: "gray",
                 // ground: "world-elevation",
                 layers: [btwLayer]
             });
-            var tiledLayer = new WebTileLayer({
-                urlTemplate: "http://{subDomain}.tile.stamen.com/toner/{level}/{col}/{row}.png",
-                subDomains: ["a", "b", "c", "d"],
-                copyright: 'Map tiles by <a href="http://stamen.com/">Stamen Design</a>, ' +
-                    'under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. ' +
-                    'Data by <a href="http://openstreetmap.org/">OpenStreetMap</a>, ' +
-                    'under <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>.'
-            });
-            esrimap.add(tiledLayer);
+            // var tiledLayer = new WebTileLayer({
+            //     urlTemplate:
+            //       "http://{subDomain}.tile.stamen.com/toner/{level}/{col}/{row}.png",
+            //     subDomains: ["a", "b", "c", "d"],
+            //     copyright:
+            //       'Map tiles by <a href="http://stamen.com/">Stamen Design</a>, ' +
+            //       'under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. ' +
+            //       'Data by <a href="http://openstreetmap.org/">OpenStreetMap</a>, ' +
+            //       'under <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>.'
+            //   });
+            //   esrimap.add(tiledLayer);
             return esrimap;
         };
         Btw2017.prototype.createSceneView = function (esrimap, btwExtent) {

@@ -1,3 +1,6 @@
+/// <reference path="../node_modules/@types/dojo/index.d.ts" />
+/// <reference path="../node_modules/@types/dojo/dijit.d.ts" />
+
 import esriConfig = require("esri/config");
 import EsriMap = require("esri/Map");
 import SceneView = require("esri/views/SceneView");
@@ -17,9 +20,9 @@ import lang = require("dojo/_base/lang");
 import on = require("dojo/on");
 import CameraStatus = require("./cameraStatus");
 
+// import * as geoJson from './geoJson.json';
+
 class Btw2017 extends _WidgetBase {
-
-
     private partycolors: PartyProperties = {
         "afd": [0, 158, 224, 1.0],
         "cducsu": [0, 0, 0, 1.0],
@@ -119,7 +122,7 @@ class Btw2017 extends _WidgetBase {
 
         var sceneView = this.createSceneView(esrimap, btwExtent);
 
-        sceneView.when(function() {
+        sceneView.when(() => {
             var legend = new Legend({
                 view: sceneView,
                 layerInfos: [{
@@ -235,23 +238,23 @@ class Btw2017 extends _WidgetBase {
 
     createMap(btwLayer: FeatureLayer) {
         var esrimap = new EsriMap({
-/*             basemap: "streets", */
+            basemap: "gray",
             // ground: "world-elevation",
             layers: [btwLayer]
         });
 
-        var tiledLayer = new WebTileLayer({
-            urlTemplate:
-              "http://{subDomain}.tile.stamen.com/toner/{level}/{col}/{row}.png",
-            subDomains: ["a", "b", "c", "d"],
-            copyright:
-              'Map tiles by <a href="http://stamen.com/">Stamen Design</a>, ' +
-              'under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. ' +
-              'Data by <a href="http://openstreetmap.org/">OpenStreetMap</a>, ' +
-              'under <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>.'
-          });
+        // var tiledLayer = new WebTileLayer({
+        //     urlTemplate:
+        //       "http://{subDomain}.tile.stamen.com/toner/{level}/{col}/{row}.png",
+        //     subDomains: ["a", "b", "c", "d"],
+        //     copyright:
+        //       'Map tiles by <a href="http://stamen.com/">Stamen Design</a>, ' +
+        //       'under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. ' +
+        //       'Data by <a href="http://openstreetmap.org/">OpenStreetMap</a>, ' +
+        //       'under <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>.'
+        //   });
         
-          esrimap.add(tiledLayer);
+        //   esrimap.add(tiledLayer);
 
         return esrimap;
     }
