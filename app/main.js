@@ -1,3 +1,5 @@
+/// <reference path="../node_modules/@types/dojo/index.d.ts" />
+/// <reference path="../node_modules/@types/dojo/dijit.d.ts" />
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
@@ -11,7 +13,7 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-define(["require", "exports", "esri/config", "esri/Map", "esri/views/SceneView", "esri/renderers/SimpleRenderer", "esri/symbols/PolygonSymbol3D", "esri/symbols/ExtrudeSymbol3DLayer", "esri/widgets/Legend", "esri/layers/FeatureLayer", "esri/layers/WebTileLayer", "esri/PopupTemplate", "dojo/dom", "dojo/dom-class", "dijit/_WidgetBase", "dojo/_base/lang", "dojo/on", "./cameraStatus"], function (require, exports, esriConfig, EsriMap, SceneView, SimpleRenderer, PolygonSymbol3D, ExtrudeSymbol3DLayer, Legend, FeatureLayer, WebTileLayer, PopupTemplate, dom, domClass, _WidgetBase, lang, on, CameraStatus) {
+define(["require", "exports", "esri/config", "esri/Map", "esri/views/SceneView", "esri/renderers/SimpleRenderer", "esri/symbols/PolygonSymbol3D", "esri/symbols/ExtrudeSymbol3DLayer", "esri/widgets/Legend", "esri/layers/FeatureLayer", "esri/layers/WebTileLayer", "esri/widgets/Home", "esri/PopupTemplate", "dojo/dom", "dojo/dom-class", "dijit/_WidgetBase", "dojo/_base/lang", "dojo/on", "./cameraStatus"], function (require, exports, esriConfig, EsriMap, SceneView, SimpleRenderer, PolygonSymbol3D, ExtrudeSymbol3DLayer, Legend, FeatureLayer, WebTileLayer, Home, PopupTemplate, dom, domClass, _WidgetBase, lang, on, CameraStatus) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var Btw2017 = /** @class */ (function (_super) {
@@ -99,7 +101,7 @@ define(["require", "exports", "esri/config", "esri/Map", "esri/views/SceneView",
                 }
             }; // TS definitions don't support Extent autocast in ArcGIS JS 4.5 yet
             var sceneView = this.createSceneView(esrimap, btwExtent);
-            sceneView.when(function () {
+            sceneView.when(function (evt) {
                 var legend = new Legend({
                     view: sceneView,
                     layerInfos: [{
@@ -112,6 +114,12 @@ define(["require", "exports", "esri/config", "esri/Map", "esri/views/SceneView",
                     sceneView: sceneView
                 });
                 sceneView.ui.add(cameraStatus, "bottom-left");
+                // Set up a home button for resetting the viewpoint to the intial extent
+                var homeBtn = new Home({
+                    view: sceneView,
+                    container: "homeDiv"
+                });
+                sceneView.ui.add(homeBtn, "upper-left");
             });
         };
         Btw2017.prototype.defineInfoTemplate = function (party) {
@@ -188,6 +196,19 @@ define(["require", "exports", "esri/config", "esri/Map", "esri/views/SceneView",
                 renderer: this.defineRenderer(party),
                 popupTemplate: this.defineInfoTemplate(party),
                 outFields: ["*"],
+            });
+            // ToDo: This was supposed to remove the loader when the 3D layer is rendered in the client and show it when the renderer is changed. But it doesn't do that.
+            var handle = btwLayer.watch('loadStatus', function (newValue, oldValue, property, object) {
+                console.log("loadStatus New value: ", newValue); // The new value of the property
+                console.log("loadStatus Old value: ", oldValue); // The previous value of the changed property
+                console.log("loadStatus Watched Property: ", property);
+                console.log("loadStatus Watched Object: ", object);
+                if (newValue === "loaded") {
+                    domClass.remove(dom.byId("loader"), "is-active");
+                }
+                else if (newValue === "loading") {
+                    domClass.add(dom.byId("loader"), "is-active");
+                }
             });
             // Define elevationInfo and set it on the layer
             var currentElevationInfo = {
@@ -305,6 +326,7 @@ define(["require", "exports", "esri/config", "esri/Map", "esri/views/SceneView",
         };
         return Btw2017;
     }(_WidgetBase));
+    // startup class
     var btw2017 = new Btw2017();
 });
 //# sourceMappingURL=main.js.map

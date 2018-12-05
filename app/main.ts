@@ -1,3 +1,6 @@
+/// <reference path="../node_modules/@types/dojo/index.d.ts" />
+/// <reference path="../node_modules/@types/dojo/dijit.d.ts" />
+
 import esriConfig = require("esri/config");
 import EsriMap = require("esri/Map");
 import SceneView = require("esri/views/SceneView");
@@ -119,7 +122,7 @@ class Btw2017 extends _WidgetBase {
 
         var sceneView = this.createSceneView(esrimap, btwExtent);
 
-        sceneView.when(function() {
+        sceneView.when(function(evt: any) {
             var legend = new Legend({
                 view: sceneView,
                 layerInfos: [{
@@ -134,6 +137,12 @@ class Btw2017 extends _WidgetBase {
             });
             sceneView.ui.add(cameraStatus, "bottom-left");
 
+            // Set up a home button for resetting the viewpoint to the intial extent
+            var homeBtn = new Home({
+                view: sceneView,
+                container: "homeDiv"
+            });
+            sceneView.ui.add(homeBtn, "upper-left");
         });
     }
 
@@ -217,6 +226,20 @@ class Btw2017 extends _WidgetBase {
             outFields: ["*"],
         });
 
+        // ToDo: This was supposed to remove the loader when the 3D layer is rendered in the client and show it when the renderer is changed. But it doesn't do that.
+        var handle = btwLayer.watch('loadStatus', function(newValue, oldValue, property, object) {
+            console.log("loadStatus New value: ", newValue);      // The new value of the property
+            console.log("loadStatus Old value: ", oldValue);  // The previous value of the changed property
+            console.log("loadStatus Watched Property: ", property); 
+            console.log("loadStatus Watched Object: ", object);
+
+            if (newValue==="loaded") {
+                domClass.remove(dom.byId("loader"), "is-active");
+            }
+            else if (newValue==="loading") {
+                domClass.add(dom.byId("loader"), "is-active");
+            }
+           });
 
         // Define elevationInfo and set it on the layer
         var currentElevationInfo = {
@@ -350,4 +373,5 @@ interface PartyProperties {
     [propName: string]: string | number | number[];
 }
 
-var btw2017 = new Btw2017();
+// startup class
+let btw2017 = new Btw2017();
