@@ -61,7 +61,6 @@ class Btw2017 extends _WidgetBase {
             "d.tile.stamen.com"
           );
 
-        console.log("constructor");
         this.startup();
     }
 
@@ -218,12 +217,13 @@ class Btw2017 extends _WidgetBase {
     createBtwLayer() {
         var party = "cducsu";
 
+        // TODO: service response is too slow (7s). Maybe consume geometries without attribute data and query data in another way, enhancing the features on the client side and keeping the geometries?
         var btwLayer: FeatureLayer = new FeatureLayer({
             //url: "https://services.arcgis.com/OLiydejKCZTGhvWg/arcgis/rest/services/Wahlkreise_2017_amtlichesErgebnis/FeatureServer/0",
             url: "https://services2.arcgis.com/jUpNdisbWqRpMo35/arcgis/rest/services/Wahlkreise_2017_amtlichesErgebnis/FeatureServer/0",
             renderer: this.defineRenderer(party),
             popupTemplate: this.defineInfoTemplate(party),
-            outFields: ["*"],
+            outFields: ["OBJECTID", "Wahlkrei_2", "Wahlkrei_1"],
         });
 
         // ToDo: This was supposed to remove the loader when the 3D layer is rendered in the client and show it when the renderer is changed. But it doesn't do that.
