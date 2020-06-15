@@ -265,7 +265,7 @@ class Btw2017 extends _WidgetBase {
 
         var tiledLayer = new WebTileLayer({
             urlTemplate:
-              "http://{subDomain}.tile.stamen.com/toner/{level}/{col}/{row}.png",
+              "https://{subDomain}.tile.stamen.com/toner/{level}/{col}/{row}.png",
             subDomains: ["a", "b", "c", "d"],
             copyright:
               'Map tiles by <a href="http://stamen.com/">Stamen Design</a>, ' +

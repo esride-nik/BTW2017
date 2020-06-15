@@ -229,7 +229,7 @@ define(["require", "exports", "esri/config", "esri/Map", "esri/views/SceneView",
                 layers: [btwLayer]
             });
             var tiledLayer = new WebTileLayer({
-                urlTemplate: "http://{subDomain}.tile.stamen.com/toner/{level}/{col}/{row}.png",
+                urlTemplate: "https://{subDomain}.tile.stamen.com/toner/{level}/{col}/{row}.png",
                 subDomains: ["a", "b", "c", "d"],
                 copyright: 'Map tiles by <a href="http://stamen.com/">Stamen Design</a>, ' +
                     'under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. ' +

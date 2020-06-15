@@ -5,14 +5,15 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "browser-sync start -s ./ -f ./"
+    "start": "browser-sync start -s ./ -f ./",
+    "dev": "tsc -w"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@types/arcgis-js-api": "^4.9.0",
     "@types/dojo": "^1.9.41",
-    "browser-sync": "^2.26.3",
+    "browser-sync": "^2.26.7",
     "typescript": "^3.1.6"
   }
 }
